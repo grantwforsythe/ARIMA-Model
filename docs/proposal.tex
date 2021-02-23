@@ -25,18 +25,13 @@
 \usepackage{lscape}
 \usepackage{physics}
 
-\usepackage{nomencl}
-\makenomenclature
-
-\title{The Evolution of the Goodwin Economics Model}
-\author{\qquad Romi Lifshitz$^{1}$ \qquad\  Arthur M\'endez-Rosales$^{2}$ \qquad\  Sara Saad$^{3}$ \\ Grant Forsythe$^{4}$ \qquad Gheeda Mourtada$^{4}$ \qquad Jacob Ronen Keffer$^{5}$}
+\title{Application of ARIMA Models in Finance}
+\author{\qquad Karlos Ye$^{1}$ \qquad Grant Forsythe$^{2}$ \qquad Leah Klompmaker$^{3}$}
 
 \date{
-{\footnotesize $^1$ Department of Arts and Science, McMaster University, ON, Canada\\[-6pt]
-$^2$ Department of Engineering Physics, McMaster University, ON, Canada \\[-6pt]
-$^3$ Department of Electrical and Computer Engineering, McMaster University, ON, Canada\\[-6pt]
-$^4$ Department of Mathematics and Statistics, McMaster University, ON, Canada\\[-6pt]
-$^5$Department of Chemistry and Chemical Biology, McMaster University, ON, Canada\\[-6pt]}
+{\footnotesize $^1$ Department of Economics and Mathematics, McMaster University, ON, Canada\\[-6pt]
+               $^2$ Department of Mathematics and Statistics, McMaster University, ON, Canada\\[-6pt]
+               $^3$ Department of Actuarial and Financial Mathematics, McMaster University, ON, Canada\\[-6pt]}
 }
 \linespread{1.5}
 \pdfminorversion=4
@@ -47,55 +42,39 @@ $^5$Department of Chemistry and Chemical Biology, McMaster University, ON, Canad
 % \thispagestyle{empty} % removes the page number on the title page
 \setcounter{page}{1}
 \section{Introduction} \label{s:intro}
-% you do not need an indent to start off a section
-
-Exogenous economics models are those that assume the economy is stable and operates in equilibrium, such that only external factors can cause a potential crash \citep{ganti_2019}. However, the real world reflects that a macro-economy can itself destabilize due to internal factors such as wage share, employment rate, and private debt \citep{minsky1992financial}. For this, R. M. Goodwin proposed an endogenous economics model in 1967 that, at its core, mimics Lotka-Volterra prey-predator dynamics \citep{goodwin1982growth}. The extension of Goodwin’s model by \citet{keen1995finance} focused on modeling Hayman Minsky’s “financial instability hypothesis”. In essence, Minsky argues that the economy can fall into a crisis given an accumulation of debt by the private sector \citep{minsky1992financial}. This Goodwin-Keen model looks into the impact of three parameters on a simplified macro-economy: employment rate ($\lambda$), wage share ($\omega$), and private debt ($d$) \citep{grasselli2012analysis,maheshwari2015empirical}.
+% % you do not need an indent to start off a section
+Time series analysis has many applications across various industries. With the advancement of technology and ease of access to data, there has been increased investment in end-to-end quantitative and machine learning models used to exploit inefficiencies in financial markets \citep{coqueret2021machine}. 
 \section{Proposal} \label{s:proposal}
-Through the framework of endogenous economic fluctuation models \citep{boldrin1990equilibrium}, the potential long-term equilibrium of the Canadian economy is thoroughly investigated for the purposes of assessing the impact of wage share, employment rate, and private debt on economic stability. For the purposes of this project, economic stability is defined as the long-term equilibrium between labour share and employment \citep{weitzman1983some}. To do so, we use the Goodwin growth model and later the extension into the Goodwin-Keen model. While Goodwin’s original model seeks to explain the dynamics between wage share and employment \citep{goodwin1982growth}, Keen’s addendum to incorporate Minsky’s thesis aims to estimate the convergence of the economy to a stable or unstable long-term equilibrium by introducing the role of debt in the private sector \citep{keen1995finance}. These predictions will be made using previous data from Statistics Canada. The following equations describe the Goodwin-Keen model, as per \citet{grasselli2012analysis}. Please refer to the Nomenclature section for a description of used parameters \citep{grasselli2012analysis,maheshwari2015empirical}.
-% Equations are formatted based on Grasselli and Lima 2012, NOT Keen's original publication
-\begin{align*} 
+The purpose of this research project will to be compare historic stock market performance of three major economies (US, Japan, UK) using simple time series models and make predictions about performance at the end of 2021\footnote{For simplicity, macro indicators (i.e. policy, bond yields, etc.) will be ignored.}. The time series models used will be\footnote{The nomenclature follows \citet{cryer2008time}.}:
+% The Financial Markets fluctuate since the 2008 Financial Crisis. In this research project, we will be examining the 3 major stock market performance: The U.S Market S&P500, The Japanese Market Nikkei225, and the UK Markets FTSE250. In this research project, we are going to examine how the world financial markets relating to each other, using Variance-Covariance matrix analysis. Then, we would compare the rate of change, by rescaling and normalizing the data. We may also throw in some Macroeconomic indicator, for example, GDP growth rate, unemployment rate and inflation rate. We are also going to make inference using the following time series model:  
+% State the Model
+% ARIMA
+% Moving Average
+% (Apply transformations)
+\begin{align} 
 \centering
-    \dv{\lambda}{t} &= \lambda \cdot \left( \frac{\kappa(1-\omega-rd)}{\nu} - \alpha - \beta - \delta \right)\\ 
-    \dv{\omega}{t} &= \omega \cdot (\Phi(\lambda) - \alpha)\\
-    \dv{d}{t} &= d\cdot\left(r-\frac{\kappa(1-\omega-rd)}{\nu}+\delta\right)+\kappa(1-\omega-rd)-(1-\omega). 
-\end{align*}
-
-\noindent We note that $\lambda(t)$ and $\omega(t)$ are unknowns; hence, we want to determine their behaviour as functions of time based on a set of initial conditions $(\lambda_0,\omega_0)$. Knowing these, we can assess the economic stability as defined by:
-\begin{equation*}
-    \begin{split}
-        \bm{\varepsilon}=\lim_{t\to\infty}[\lambda(t), \omega(t)].
-        % \label{eq:stability}
-    \end{split}
-\end{equation*}
-
-\noindent Our research project will focus on studying the long-term equilibrium impact that these real variables can have on the simplified macro-economy. To study the long-term dynamics of the models, we will test each model at various initial conditions and conduct sensitivity analysis to systematically test the effects of parameter values on the equilibrium (e.g. the population growth rate and labour productivity). Finally, we plan to determine regions of convergence towards equilibrium by using phase plane analysis to evaluate the stability of the system.
-
+    Y_t &= e_t - \theta_1e_{t-1} - \theta_2e_{t-2} - \cdots - \beta_pe_{t-p}\\
+    Y_t &= \phi_1Y_{t-1} + \phi_2Y_{t-2} + \cdots + \beta_pY_{t-p} + e_t\\
+    W_t &= \phi_1W_{t-1} + \phi_2W_{t-2} + \cdots + \beta_pW_{t-p}\\
+        &+ e_t - \theta_1e_{t-1} - \theta_2e_{t-2} - \cdots - \theta_qe_{t-q}\nonumber
+\end{align}
+The \texttt{yahoo-finance} and \texttt{pandas} \texttt{Python} packages will be used for data wrangling; while, \texttt{R} will be used for data processing.
 
 \newpage
 
-\nomenclature[01]{$\lambda$}{Employment rate}
-\nomenclature[02]{$\omega$}{Wage share}
-\nomenclature[03]{$d$}{Debt ratio}
-\nomenclature[05]{$L$}{Total labour employed}
-\nomenclature[04]{$N$}{Total labour force}
-\nomenclature[06]{$w$}{Real wages per unit of labour}
-\nomenclature[07]{$a$}{Labour productivity}
-\nomenclature[08]{$D$}{Amount of debt in real terms}
-\nomenclature[09]{$Y$}{Total yearly Output}
-\nomenclature[10]{$K$}{Capital stock}
-\nomenclature{$\kappa$}{Fixed acceleration relation for the total real capital stock}
-\nomenclature{$\beta$}{The population growth rate}
-\nomenclature{$\delta$}{Constant depreciation rate}
-\nomenclature{$\alpha$}{The exponential growth of disembodied productivity growth rate, Technological growth}
-\nomenclature{$r$}{Constant real interest rate}
-\nomenclature{$\Phi(\lambda)$}{Non-linear function of the rate of employment, Phillips curve}
+% \nomenclature[01]{$Y_t$}{A Time Series}
+% \nomenclature[02]{$e_t$}{Noise ($\sim N(0,\sigma_e^2$)}
+% \nomenclature[03]{$\theta_t, \phi$}{Model Parameters}
+% \nomenclature[05]{$W_t$}{Difference in Time Series ($Y_t - Y_{t-1}$)}
 
 \newpage
+
+\nocite{*}
 \bibliographystyle{chicago}
 \bibliography{bibliography.bib}
 
-\newpage
-\printnomenclature
+% \newpage
+% \printnomenclature
 
 \end{document}
 
