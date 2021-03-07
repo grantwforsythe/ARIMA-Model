@@ -32,7 +32,7 @@ Windows:
 To verify that your virtual environment is activated, your command line
 should look like the following.
 ```
-(.venv) C:\Users\name\Desktop\Repos\math3mb3>
+(.venv) ~path_to_project\Stats-6A03>
 ```
 Then, to install the required dependices, run the following command.
 ```
