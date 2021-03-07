@@ -4,7 +4,7 @@
 * [Setup](#setup)
 
 ## General info
-Using a Goodwin and Goodwin-Keen model to model a macroeconomy.
+This project attempts to model financial models using a simple *ARIMA* model. 
 
 ## Technologies
 Project is created with:
