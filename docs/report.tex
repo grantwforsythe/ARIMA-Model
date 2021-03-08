@@ -30,16 +30,45 @@
 \usepackage{svg}
 \usepackage{float}
 \usepackage{multirow}
-\usepackage{nomencl}
-\makenomenclature
+
+% Contents of listings-setup.tex
+\usepackage{xcolor}
+\usepackage{listings}
+
+\lstdefinestyle{mystyle}{
+    basicstyle=\ttfamily,
+    numbers=left,
+    keywordstyle=\color[rgb]{0.13,0.29,0.53}\bfseries,
+    stringstyle=\color[rgb]{0.31,0.60,0.02},
+    commentstyle=\color[rgb]{0.56,0.35,0.01}\itshape,
+    numberstyle=\footnotesize,
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color[RGB]{248,248,248},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=true,
+    breakautoindent=true,
+    escapeinside={\%*}{*)},
+    linewidth=\textwidth,
+    basewidth=0.5em
+}
+
+\lstset{style=mystyle}
+
+% You can write code using the method below
+% Example:
+% \lstinputlisting[language=Octave]{BitXorMatrix.m}
 
 % % Uncomment to Exclude All Figures
 % % Comment to Include All Figures
 % \usepackage{comment}
 % \excludecomment{figure}
 % \let\endfigure\relax
-
-
 
 % Set default image directory
 \graphicspath{ {../imgs/} }  
@@ -49,8 +78,6 @@
 
 \title{Application of ARIMA Models in Finance} % 
 % Old title: The Evolution of the Goodwin Economics Model
-\author{\qquad Grant Forsythe$^{1}$}
-
 \author{\qquad Karlos Ye$^{1}$ \qquad Grant Forsythe$^{2}$ \qquad Leah Klompmaker$^{3}$}
 
 \date{
@@ -68,8 +95,8 @@
 \maketitle
 \vspace{-8mm} % Push abstract up by 8mm
 \begin{abstract}
-% Example abstract. Source: https://arxiv.org/pdf/2011.14522.pdf
-In every economy there exist many factors impacting long-term equilibria, some of which have been accounted for by various models. Here, we examine the differences between the Goodwin and Goodwin-Keen models which seek to explain economic dynamics. To do so, we present long-term equilibria and conduct a brief sensitivity study. The results illustrate that the Goodwin model presents only one realistic equilibrium, that the Goodwin-Keen model's non-trivial solution is an extreme economic scenario, and that the long-term economic equilibria are impacted by the initial state variable conditions. These findings motivate the pursuit of a deeper understanding of economic dynamics, as it paves the way for better predictions of economic events. \\ \textbf{Keywords}: Goodwin model, Keen model, Endogenous economics, Prey-predator dynamics, Economic instability, Simulation Study.
+% Example abstract:
+% In every economy there exist many factors impacting long-term equilibria, some of which have been accounted for by various models. Here, we examine the differences between the Goodwin and Goodwin-Keen models which seek to explain economic dynamics. To do so, we present long-term equilibria and conduct a brief sensitivity study. The results illustrate that the Goodwin model presents only one realistic equilibrium, that the Goodwin-Keen model's non-trivial solution is an extreme economic scenario, and that the long-term economic equilibria are impacted by the initial state variable conditions. These findings motivate the pursuit of a deeper understanding of economic dynamics, as it paves the way for better predictions of economic events. \\ \textbf{Keywords}: Goodwin model, Keen model, Endogenous economics, Prey-predator dynamics, Economic instability, Simulation Study.
 
 \end{abstract}
 \newpage
@@ -91,10 +118,12 @@ Specifically, we take an in-depth look at the Goodwin model with respect to its 
 % \newpage % DONT FORGET TO REMOVE THIS. 
 
 \section{Methodology}
+%Karlos Ye
 % This is where you write your mathematical definitions, or dataset acquisitions, and or cleaning of data. 
 % Arthur's Collab. and Synthesized Code: https://colab.research.google.com/drive/1LJISFLnZGBlSe2oGJ1wf6I0rD-wq9Nes?usp=sharing
 
-Python \citep{rossum1995python} and various scientific packages were used to construct the models. All model parameters are in accordance with the assumptions used by \citet{grasselli2012analysis}, as shown in Table \ref{tab:parameters} below. The entire project code can be viewed on \href{https://github.com/grantwforsythe/math3mb3}{GitHub}.
+Python \citep{rossum1995python} and various scientific packages were used to construct the models. All model parameters are in accordance with the assumptions used by \citet{grasselli2012analysis}, as shown in Table \ref{tab:parameters} below. The entire project code can be viewed on \href{https://github.com/grantwforsythe/Stats-6A03}{GitHub}.
+\lstinputlisting[language=Python]{..\scripts\\}
 \begin{table}[!h]
 \caption{Model Parameters used by \citet{grasselli2012analysis}.}
 \label{tab:parameters}
@@ -116,7 +145,7 @@ $\nu$                   & $3$                       & Capital-to-output Ratio   
 \hline
 \end{tabular}
 \end{table}
-\subsection{Goodwin Model}
+\subsection{AR Model}
 The Goodwin model is described by
 \begin{equation}\label{eq:goodwin} 
 \begin{split}
@@ -134,7 +163,7 @@ In this model, $\lambda$ represents the fraction of employed workers, and $\omeg
 \end{equation}
 This Jacobian matrix was symbolically determined using various methods (i.e. \texttt{solvers.solve}, \texttt{symbols}, \texttt{Matrix}) from the SymPy library \citep{SymPy}.  The equilibrium points and the corresponding eigenvalues of $\mathbf J$ were also symbolically determined using these methods. To corroborate these results, the parameters in Table \ref{tab:parameters} were used to numerically solve the system. This was done using the \texttt{integrate.odeint} method from the SciPy library \citep{2020SciPy-NMeth}. Initial conditions to the system were selected based on \citet{grasselli2012analysis}. The Matplotlib \citep{matplotlib} graphic library was used to generate representative plots of the resulting numerical solution.
 
-\subsection{Goodwin-Keen Model}
+\subsection{MA Model}
 We consider the Goodwin-Keen model as the system of differential equations defined by 
 \begin{equation} \label{eq:keen}
 \begin{split}
@@ -159,7 +188,7 @@ Given the increased complexity of this model, equilibrium points were determined
 % You need to talk about the results of your model. 
 % Arthur's Collab. and Synthesized Code: https://colab.research.google.com/drive/1LJISFLnZGBlSe2oGJ1wf6I0rD-wq9Nes?usp=sharing
 
-\subsection{The Goodwin Model}
+\subsection{ARIMA Model}
 The following is a detailed study on the system behaviour demonstrated by the Goodwin model. We begin by noting that in \eqref{eq:goodwin} the Philips curve, $\Phi(\lambda)$, has not been explicitly defined. When the model was proposed \citep{goodwin1982growth}, $\Phi(\lambda)$ was assumed to be a linear function of employment rate. This would mean that a higher fraction of employment leads to a rising wage share. Nevertheless, \citet{goodwin1982growth} admitted that this was an empirical and disputable assumption. On that account, \citet{keen1995finance} proposed \eqref{eq:keenPhil} as a more realistic model. The introduced function models a worker population more willing to accept wage cuts at higher levels of unemployment (i.e. lower $\lambda$). Conversely, as employment rates increase, workers will demand real wages that asymptotically increase (i.e. $\lambda\to1$). This function was also adopted by \citet{grasselli2012analysis} and incorporated into the Goodwin model
 \begin{equation} \label{eq:keenPhil}
     \Phi(\lambda) = \frac{\Phi_1}{(1-\lambda)^2}-\Phi_0.
@@ -272,36 +301,12 @@ Throughout this report, the Goodwin and Goodwin-Keen models have been described 
 % Sport Statistics: This model indicates player outcomes for this and this team to win these type of games. 
 % This is half a page long.
 
-\section{Acknowledgments}
-We would like to thank Nik Počuča (McMaster University) for encouraging us to think about and explore this problem. We would also like to thank Daniel Presta for useful discussions and invaluable feedback throughout the project.
+% \section{Acknowledgments}
+% We would like to thank Dr. Cousins (McMaster University) for his guidance throughout the project.
 
+\nocite{*}
 \bibliographystyle{chicago}
 \bibliography{bibliography.bib}
-
-\newpage
-\mbox{}
-\nomenclature[1]{$\lambda$}{Employment rate}
-\nomenclature[2]{$\omega$}{Wage share}
-\nomenclature[3]{$d$}{Debt ratio}
-
-% \nomenclature{$L$}{Total labour employed}
-% \nomenclature{$N$}{Total labour force}
-% \nomenclature{$w$}{Real wages per unit of labour}
-% \nomenclature{$a$}{Labour productivity}
-% \nomenclature{$D$}{Amount of debt in real terms}
-% \nomenclature{$Y$}{Total yearly Output}
-% \nomenclature{$K$}{Capital stock}
-
-\nomenclature{$\nu$}{Constant capital-to-output ratio}
-\nomenclature{$\kappa$}{Acceleration relation for the total real capital stock}
-\nomenclature{$\beta$}{Population growth rate}
-\nomenclature{$\delta$}{Constant depreciation rate}
-\nomenclature{$\alpha$}{The exponential growth of disembodied productivity growth rate, Technological growth}
-\nomenclature{$r$}{Constant real interest rate}
-\nomenclature{$\Phi(\lambda)$}{Function of the rate of employment, Phillips curve}
-
-\vspace{-20mm}
-\printnomenclature
 
 % \newpage
 % \section*{Appendix}
