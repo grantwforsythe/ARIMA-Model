@@ -1,6 +1,6 @@
-import numpy as np
 import pandas as pd
 from pandas_datareader import data as wb
+
 
 def getdata(tickers):
     ind_data = pd.DataFrame()
