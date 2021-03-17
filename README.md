@@ -3,15 +3,15 @@
 * [Technologies](#technologies)
 * [Setup](#setup)
 
-# General info
+## General info
 This project attempts to model financial models using a simple *ARIMA* model. 
 
-# Technologies
+## Technologies
 Project is created with:
 * Python version: 3.8.*
 * R version: 4.0.4
 	
-# Setup
+## Setup
 It is a best practice to run program files in a virtual environment as
 it allows the program to run with it's own separate dependencies.
 
