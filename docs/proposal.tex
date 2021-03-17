@@ -37,20 +37,13 @@
 \pdfminorversion=4
 
 \begin{document}
-% makes title
 \clearpage\maketitle
 % \thispagestyle{empty} % removes the page number on the title page
 \setcounter{page}{1}
-\section{Introduction} \label{s:intro}
-% % you do not need an indent to start off a section
+\section{Introduction}
 Time series analysis has many applications across various industries. With the advancement of technology and ease of access to data, there has been increased investment in end-to-end quantitative and machine learning models used to exploit inefficiencies in financial markets \citep{coqueret2021machine}. 
-\section{Proposal} \label{s:proposal}
-The purpose of this research project will to be compare historic stock market performance of three major economies (US, Japan, UK) using simple time series models and make predictions about performance at the end of 2021\footnote{For simplicity, macro indicators (i.e. policy, bond yields, etc.) will be ignored.}. The time series models used will be\footnote{The nomenclature follows \citet{cryer2008time}.}:
-% The Financial Markets fluctuate since the 2008 Financial Crisis. In this research project, we will be examining the 3 major stock market performance: The U.S Market S&P500, The Japanese Market Nikkei225, and the UK Markets FTSE250. In this research project, we are going to examine how the world financial markets relating to each other, using Variance-Covariance matrix analysis. Then, we would compare the rate of change, by rescaling and normalizing the data. We may also throw in some Macroeconomic indicator, for example, GDP growth rate, unemployment rate and inflation rate. We are also going to make inference using the following time series model:  
-% State the Model
-% ARIMA
-% Moving Average
-% (Apply transformations)
+\section{Proposal}
+The purpose of this research project will to be compare historic stock market performance of three major economies (US, Japan, UK) using simple time series models and make predictions about performance at the end of 2021\footnote{For simplicity, macro indicators (i.e. policy, bond yields, etc.) will be ignored.}. The time series models used will be\footnote{The nomenclature follows \citet{cryer2008time}.}.
 \begin{align} 
 \centering
     Y_t &= e_t - \theta_1e_{t-1} - \theta_2e_{t-2} - \cdots - \beta_pe_{t-p}\\
@@ -62,19 +55,11 @@ The \texttt{yahoo-finance} and \texttt{pandas} \texttt{Python} packages will be 
 
 \newpage
 
-% \nomenclature[01]{$Y_t$}{A Time Series}
-% \nomenclature[02]{$e_t$}{Noise ($\sim N(0,\sigma_e^2$)}
-% \nomenclature[03]{$\theta_t, \phi$}{Model Parameters}
-% \nomenclature[05]{$W_t$}{Difference in Time Series ($Y_t - Y_{t-1}$)}
-
 \newpage
 
 \nocite{*}
 \bibliographystyle{chicago}
 \bibliography{bibliography.bib}
-
-% \newpage
-% \printnomenclature
 
 \end{document}
 
