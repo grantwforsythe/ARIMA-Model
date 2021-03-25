@@ -1,7 +1,10 @@
+# environments
 .venv/
-
 .idea/
-
 .vscode/
-
+.github/
 __pycache__/
+
+# workflows
+.github/
+.Rproj.user
