@@ -95,75 +95,66 @@
 \vspace{-8mm} % Push abstract up by 8mm
 \begin{abstract}
 % Example abstract:
-% In every economy there exist many factors impacting long-term equilibria, some of which have been accounted for by various models. Here, we examine the differences between the Goodwin and Goodwin-Keen models which seek to explain economic dynamics. To do so, we present long-term equilibria and conduct a brief sensitivity study. The results illustrate that the Goodwin model presents only one realistic equilibrium, that the Goodwin-Keen model's non-trivial solution is an extreme economic scenario, and that the long-term economic equilibria are impacted by the initial state variable conditions. These findings motivate the pursuit of a deeper understanding of economic dynamics, as it paves the way for better predictions of economic events. \\ \textbf{Keywords}: Goodwin model, Keen model, Endogenous economics, Prey-predator dynamics, Economic instability, Simulation Study.
+In every economy there exist many factors impacting long-term equilibria, some of which have been accounted for by various models. 
+Here, we examine the differences between the Goodwin and Goodwin-Keen models which seek to explain economic dynamics. To do so, we present long-term equilibria and conduct a brief sensitivity study. The results illustrate that the Goodwin model presents only one realistic equilibrium, that the Goodwin-Keen model's non-trivial solution is an extreme economic scenario, and that the long-term economic equilibria are impacted by the initial state variable conditions. These findings motivate the pursuit of a deeper understanding of economic dynamics, as it paves the way for better predictions of economic events.
+
+\noindent\textbf{Keywords}: AR, MA, ARIMA, TSA.
+
 
 \end{abstract}
 \newpage
 
 \section{Introduction}
-
-Time series analysis has many applications across various industries. With the advancement of technology and ease of access to data, there has been increased investment in end-to-end quantitative and machine learning models used to exploit inefficiencies in financial markets \citep{coqueret2021machine}. The purpose of this research project will to be compare historic stock market performance of three major markets using simple time series models to make predictions about performance at the end of 2021\footnote{The three stock indices - S\&P 500, Nikkei 225, and FTSE 250 - represent the market performance in the United States, Japan, and the United Kingdom respectively}. 
+% Introduction Paragragh
+Time series analysis has many applications across various industries. With the advancement of technology and ease of access to data, there has been increased investment in end-to-end quantitative and machine learning models that are used to exploit inefficiencies in financial markets \citep{coqueret2021machine}. The purpose of this project will be to analyze historic stock market performance in the US market and fit different models in order to predict near future performance\footnote{Stock market index is calculated as the weighted average of a basket of stocks, representing the overall market performance.}. The S\&P 500 is used to represent the market performance in the United States for the purpose of this study. 
 % ; will provide a comparative picture of the different markets and aid in informed decision making for model specification, diagnostics, and finally forecasting. 
 % Interpreting the indices movements and forecasting the future values will be a challenging component of this research as stock price movements can be quite dynamic. 
 % They can be impacted by many factors concurrently such as interest rates, inflation, economic growth, human behaviour, and international events among others. 
 
-Using historical data to predict the future performance of the indices is based on the assumption that stock prices are derive from market forces and historical tends \citep{levy1967relative}. Although this theory was challenged by the efficient market hypothesis proposed by \citet{malkiel2003efficient}, which states that stock prices follow a random walk and therefore cannot be predicted by past prices, many empirical studies have found that stock prices are predictable.
-
+% Body Paragraph
+Using historical data to predict the future performance of the index is based on the assumption that stock prices are derived from market forces and historical trends \citep{levy1967relative}. Although this theory was challenged by the Efficient Market Hypothesis proposed by \citet{malkiel2003efficient} which states that stock prices follow a random walk and therefore cannot be predicted by past prices, many empirical studies have found that stock prices are predictable.
 % In fact, many hedge fund managers and arbitragers make a living by studying market trends and identifying the most profitable investments for a company. 
-
-For time series forecasting, there are various techniques that can be applied. Autoregressive Integrated Moving Average (ARIMA) models take the linear function of past observations and random error terms to obtain the predicted future value of a predictor,
-\begin{equation}
-        W_t = \phi_1W_{t-1} + \phi_2W_{t-2} + \cdots + \beta_pW_{t-p} + e_t - \theta_1e_{t-1} - \theta_2e_{t-2} - \cdots - \theta_qe_{t-q}. \label{eq:ARIMA}
-\end{equation}
-
 % models are one of the most popular linear models and will be considered in this study. ARIMA
-Another model we will consider is the moving average (MA) model which specifies a future value based on a linear combination of current and past values,
-\begin{equation}
-    Y_t = e_t - \theta_1e_{t-1} - \theta_2e_{t-2} - \cdots - \beta_pe_{t-p}\label{eq:MA}.
-\end{equation}
-Various transformations of the data will also be considered in attempt to improve the fit of the models. 
-
-% The equations for the time series models used in this study are as follows: 
-% \begin{align} 
-% \centering
-%     Y_t &= \phi_1Y_{t-1} + \phi_2Y_{t-2} + \cdots + \beta_pY_{t-p} + e_t\\
-% \end{align}
 
 % Closing Paragraph
-This report will conclude by forecasting the values of the indices for the remainder of the 2021 year using past market data under the assumption that trends can be identified and the future can be predicted. The results of each model will be compared, focusing on their fit. Finally, conclusive remarks are made based on the value of these models as potential, real-world, predictive tools.
-
-% \newpage % DONT FORGET TO REMOVE THIS. 
+For time series forecasting, there are various techniques that can be applied. In this study, an ARIMA model along with various transformations will be considered to adjust the time series such that it is approximately stationary. This report will conclude by forecasting values of the index based on the model we have fit to the data and remarks are made based on the value of this model as a potential, real-world, predictive tool.
 
 \section{Methodology}
 %Karlos Ye
 % This is where you write your mathematical definitions, or dataset acquisitions, and or cleaning of data. 
-% Arthur's Collab. and Synthesized Code: https://colab.research.google.com/drive/1LJISFLnZGBlSe2oGJ1wf6I0rD-wq9Nes?usp=sharing
 
-\texttt{Python} \citep{rossum1995python} was used to collect market data. The nomenclature follows \citet{cryer2008time}. The entire project can be viewed on \href{https://github.com/grantwforsythe/ARIMA-Model}{GitHub}.
-% , as shown in Table \ref{tab:parameters} below
-\lstinputlisting[caption={Descriptive Caption Text}, language=Python]{../scripts/getdata.py}
-% \begin{table}[!h]
-% \caption{Model Parameters used by \citet{grasselli2012analysis}.}
-% \label{tab:parameters}
-% \centering
-% \begin{tabular}{|c|c|l|}
-% \hline
-% \textbf{Parameter }     & \textbf{Value}            & \textbf{Definition}                       \\
-% \hline
-% $\alpha$                & $0.025$                   & Technological Growth Rate                 \\
-% $\beta$                 & $0.02$                    & Population Growth Rate                    \\
-% $\delta$                & $0.01$                    & Depreciation Rate                 \\ \hline
-% $\Phi_0$                & $0.04/(1-0.04^2)$         & \multirow{2}{*}{Phillips Curve Parameters}\\
-% $\Phi_1$                & $0.04^3/(1-0.04^2)$       & ~                                 \\ \hline
-% $\kappa_0$             & $-0.0065$                 & \multirow{3}{*}{Rate of Investment Parameters}   \\
-% $\kappa_1$              & $\mathrm e^{-5}$          & ~                                         \\
-% $\kappa_2$              & $20$                      & ~                                 \\ \hline
-% $r$                     & $0.03$                    & Real Interest Rate                        \\
-% $\nu$                   & $3$                       & Capital-to-output Ratio                   \\
-% \hline
-% \end{tabular}
-% \end{table}
+% Specifically, Pandas.DataReader package was used to import data from Yahoo Finance. For example, S&P500 is derived from the weighted average of the stock prices of top 500 U.S firms, with Apple being the most-weighted firm.
+
+\texttt{R} \citep{R} was used to aggregate market data and fit the models.  In this research, the Adjusted Open Price\footnote{Adjusted Open Price is calculated after dividends, stock splits and other factors.} is used as a representation of stock indices data\footnote{The nomenclature follows \citet{cryer2008time}. The entire project can be viewed on \href{https://github.com/grantwforsythe/ARIMA-Model}{GitHub}.}.
+
+
+
+\subsection{MA Model}
+A moving average process is a finite weighted sum of past random errors plus current random error. A moving average of order $q$, denoted as MA($q$), is defined by
+\begin{equation}\label{eq:MA}
+    Y_t = e_t - \theta_1e_{t-1} - \theta_2e_{t-2} - \cdots - \beta_pe_{t-q}.
+\end{equation}
+A strong assumption for MA models is that the time-series is \textit{stationary}, .i.e. the variance and autocorrelation structure do not change with time. 
+% where \begin{itemize}
+%     \item $\delta$ represents the regression coefficient;
+%     \item $e_{t-1},e_{t-2}...e_{t-q}$ represents the past random white noise
+% \end{itemize}
+
 \subsection{AR Model}
+%An Autoregressive model, as the name suggests, is a regression of itself.% 
+In an autoregressive model, the current value from the time series is regressed on the previous value(s) from that same time series. Mathematically, an $p^{\text{th}}$ order autoregressive model, denoted as AR$(p)$, is described by
+\begin{equation}\label{eq:AR}
+    \centering
+    Y_t = \phi_1Y_{t-1} + \phi_2Y_{t-2} + \cdots + \phi_pY_{t-p} + e_t.
+\end{equation} 
+Like an MA model, AR models require the same assumptions of stationarity.
+% where \begin{itemize}
+%     \item $Y_t$ represents the current value of the series;
+%     \item $\phi$ represents the regression coefficient;
+%     \item $Y_{t-1},Y_{t-2}...Y_{t-p}$ represents the past values;
+%     \item $e_t$ represents the error term that includes randomness not explained by past values;
+% \end{itemize}
+% In this model, $\phi_i i \in p \subset \mathbb{Z}$ represents...
 % The Goodwin model is described by
 % \begin{equation}\label{eq:goodwin} 
 % \begin{split}
@@ -181,7 +172,12 @@ This report will conclude by forecasting the values of the indices for the remai
 % \end{equation}
 % This Jacobian matrix was symbolically determined using various methods (i.e. \texttt{solvers.solve}, \texttt{symbols}, \texttt{Matrix}) from the SymPy library \citep{SymPy}.  The equilibrium points and the corresponding eigenvalues of $\mathbf J$ were also symbolically determined using these methods. To corroborate these results, the parameters in Table \ref{tab:parameters} were used to numerically solve the system. This was done using the \texttt{integrate.odeint} method from the SciPy library \citep{2020SciPy-NMeth}. Initial conditions to the system were selected based on \citet{grasselli2012analysis}. The Matplotlib \citep{matplotlib} graphic library was used to generate representative plots of the resulting numerical solution.
 
-\subsection{MA Model}
+\subsection{ARIMA Model}
+
+An Autoregressive Integrated Moving Average, abbreviated as ARIMA, model is a combination of \eqref{eq:MA}, \eqref{eq:AR}, and the number differences required to make the series approximately stationary. Differencing can help stabilize the mean and reduce trends such that the series has relatively constant variance. It takes the linear function of past observations and random error terms to obtain the predicted future value of a predictor.The model is defined as
+\begin{equation}\label{eq:ARIMA}
+        W_t = \phi_1W_{t-1} + \phi_2W_{t-2} + \cdots + \beta_pW_{t-p} + e_t - \theta_1e_{t-1} - \theta_2e_{t-2} - \cdots - \theta_qe_{t-q}. 
+\end{equation}
 % We consider the Goodwin-Keen model as the system of differential equations defined by 
 % \begin{equation} \label{eq:keen}
 % \begin{split}
@@ -203,10 +199,52 @@ This report will conclude by forecasting the values of the indices for the remai
 % Given the increased complexity of this model, equilibrium points were determined numerically for a variety of initial conditions using the \texttt{integrate.odeint} method from the SciPy library \citep{2020SciPy-NMeth} and simulating for 1000 steps. The closed-form Jacobian matrix was determined using the SymPy library \citep{SymPy}, and its eigenvalues were then determined using the SymPy \texttt{eigenvects} method. A \emph{basin of attraction} study was then performed on this model using the parameters in Table \ref{tab:parameters}. Long-term model convergence was asserted by verifying that the real part of the eigenvalues of \eqref{eq:keenJ}, for various initial conditions, had a value less than zero. All results were plotted using the Matplotlib \citep{matplotlib} graphic library.
 
 \section{Application}
+\begin{itemize}
+    \item Show the first difference
+    \item Talk about why we aren't using the second difference (over-fitting, more variability)
+    \item Fit different ARIMA models
+    \item Compare
+\end{itemize}
+As seen in figure \ref{fig:USA_open} the plot shows a clear upward trend. The variance also tends to be relatively stable with the exception of a few dips.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/USA_open.png}
+    \caption{S\&P500 Performance.}
+    \label{fig:USA_open}
+\end{figure}
+As seen in figure \ref{fig:acf}, the autocorrelation function shows that the present value of the series is strongly related to its past values since all lags pictured are significantly out of the confidence band. Interpreting this figure, it indicates that a transformation needs to be performed on the data in order to get to the stationarity assumption.  
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/acf.png}
+    \caption{The ACF of the S\&P500.}
+    \label{fig:acf}
+\end{figure}
+As seen in figure \ref{fig:first_difference}, the first difference is close to having mean zero, and the variance is relatively constant. This suggests that the first difference is a good transformation for this data series as it looks approximately stationary. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/first_difference.png}
+    \caption{The First Difference of the S\&P500.}
+    \label{fig:first_difference}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/second_difference.png}
+    \caption{The Second Difference of the S\&P500.}
+    \label{fig:second_difference}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/acf_first.png}
+    \caption{The ACF of the Second Difference of the S\&P500.}
+    \label{fig:second_difference}
+\end{figure}
+
+
+
 % You need to talk about the results of your model. 
 % Arthur's Collab. and Synthesized Code: https://colab.research.google.com/drive/1LJISFLnZGBlSe2oGJ1wf6I0rD-wq9Nes?usp=sharing
-
-\subsection{ARIMA Model}
 % The following is a detailed study on the system behaviour demonstrated by the Goodwin model. We begin by noting that in \eqref{eq:goodwin} the Philips curve, $\Phi(\lambda)$, has not been explicitly defined. When the model was proposed \citep{goodwin1982growth}, $\Phi(\lambda)$ was assumed to be a linear function of employment rate. This would mean that a higher fraction of employment leads to a rising wage share. Nevertheless, \citet{goodwin1982growth} admitted that this was an empirical and disputable assumption. On that account, \citet{keen1995finance} proposed \eqref{eq:keenPhil} as a more realistic model. The introduced function models a worker population more willing to accept wage cuts at higher levels of unemployment (i.e. lower $\lambda$). Conversely, as employment rates increase, workers will demand real wages that asymptotically increase (i.e. $\lambda\to1$). This function was also adopted by \citet{grasselli2012analysis} and incorporated into the Goodwin model
 % \begin{equation} \label{eq:keenPhil}
 %     \Phi(\lambda) = \frac{\Phi_1}{(1-\lambda)^2}-\Phi_0.
@@ -256,7 +294,7 @@ This report will conclude by forecasting the values of the indices for the remai
 %     \label{fig:goodwin_phase}
 % \end{figure}
 
-\subsection{The Goodwin-Keen Model}
+% \subsection{The Goodwin-Keen Model}
 % The Jacobian matrix for the Goodwin-Keen model makes use of both \eqref{eq:keenPhil} and 
 % \begin{equation*} \label{eq:keenKappa}
 %     \kappa=\kappa(\pi) = \kappa_0 + \kappa_1\mathrm e^{\kappa_2\pi}.
@@ -313,7 +351,7 @@ This report will conclude by forecasting the values of the indices for the remai
 % Minimum 1 and a half pages. 
 
 \section{Conclusion}
-% Throughout this report, the Goodwin and Goodwin-Keen models have been described qualitatively, and presented mathematically. The behaviours of the economic models have been explored numerically and analytically. The tendency of the Goodwin model to converge to an oscillatory equilibrium state or diverge has been demonstrated. The Goodwin-Keen model, which can show more realistic features representative of an economic collapse, has been investigated, and simulations have been performed. A thorough comparison of the models has interpreted their behaviours. This study has concluded that the Goodwin model produces unrealistic long-term behaviour that cannot be used to accurately describe an economy. It has, however, led to many more economically representative models based on the original prey-predator dynamic, such as the Goodwin-Keen model. As demonstrated in this report, Keen's improved model can reasonably simulate an economic crash (instability). The ability to simulate and predict an incoming economic crash, such as a recession or depression, gives governments invaluable foresight. This may allow policy-makers to enact regulations for avoiding, or at the very least, curbing the severity of the crash. Our findings motivate the pursuit of a deeper understanding of economic dynamics, as it paves the way for better predictions of economic events.
+Throughout this report, the Goodwin and Goodwin-Keen models have been described qualitatively, and presented mathematically. The behaviours of the economic models have been explored numerically and analytically. The tendency of the Goodwin model to converge to an oscillatory equilibrium state or diverge has been demonstrated. The Goodwin-Keen model, which can show more realistic features representative of an economic collapse, has been investigated, and simulations have been performed. A thorough comparison of the models has interpreted their behaviours. This study has concluded that the Goodwin model produces unrealistic long-term behaviour that cannot be used to accurately describe an economy. It has, however, led to many more economically representative models based on the original prey-predator dynamic, such as the Goodwin-Keen model. As demonstrated in this report, Keen's improved model can reasonably simulate an economic crash (instability). The ability to simulate and predict an incoming economic crash, such as a recession or depression, gives governments invaluable foresight. This may allow policy-makers to enact regulations for avoiding, or at the very least, curbing the severity of the crash. Our findings motivate the pursuit of a deeper understanding of economic dynamics, as it paves the way for better predictions of economic events.
 % Housing Prices: Future projections show this, from the model. Then write about what the future results indicate. 
 % SIR Model: If you decrease the infection rate by 20\%, you will get a peak decrease of 15\%. 
 % Sport Statistics: This model indicates player outcomes for this and this team to win these type of games. 
@@ -325,6 +363,10 @@ This report will conclude by forecasting the values of the indices for the remai
 \nocite{*}
 \bibliographystyle{chicago}
 \bibliography{bibliography.bib}
+\newpage
+
+\section{Appendix}
+\lstinputlisting[caption={R Commands.}, language=Python]{../scripts/getdata.py}
 
 % \newpage
 % \section*{Appendix}
