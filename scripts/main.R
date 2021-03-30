@@ -4,8 +4,8 @@ library(xts)  # ts
 
 ## Getting Data
 
-first.date <- Sys.Date() - 200 
-last.date <- Sys.Date()
+first.date <- "2020-11-29"
+last.date <- "2021-03-29"
 freq.data <- 'daily'
 
 usa <- BatchGetSymbols(tickers = "^gspc", 
@@ -22,17 +22,15 @@ usa_open<-as.ts(usa$df.tickers$price.open)
 
 plot(usa_open, 
      type = "o",
-     ylab = "S&P 500 Open Prices")
+     ylab = "Adjusted Open Prices")
 
 usa_open_diff <- diff(usa_open)
-
-first_diff_mod<-lm(usa_open_diff~time(usa_open_diff))
 
 plot(usa_open_diff,
      type = "o",
      ylab = "First Difference")
 
-abline(first_diff_mod)
+abline(h=0)
 
 plot(diff(usa_open_diff),
      type="o",
@@ -43,28 +41,39 @@ abline(h=0)
 acf(usa_open, main = "")
 acf(usa_open_diff, main = "")
 pacf(usa_open_diff, main = "")
+TSA::eacf(usa_open)
 
 ## Model Fitting
 
-fitARIMA.1 <- arima(usa_open, 
+model <- arima(usa_open, 
                   order=c(1,1,1))
-print(fitARIMA.1)
-coeftest(fitARIMA.1)
+print(model)
+coeftest(model)
 
-fitARIMA.2 <- arima(usa_open, 
-                  order=c(2,1,1))
-print(fitARIMA.2)
-coeftest(fitARIMA.2) 
-
-fitARIMA.3 <- arima(usa_open, 
-                  order=c(2,1,2))
-print(fitARIMA.3)
-coeftest(fitARIMA.3) 
+plot(model,
+     n.ahead=10,
+     col="black")
 
 ## Residuals
 
-res <-fitARIMA.1$residuals
+res <-rstandard(model)
 
-acf(res, main = "Residuals")
+plot(res,
+     ylab="Standardized residuals",
+     type="o")
+abline(h=0)
+
 qqnorm(res, main = "")
 qqline(res)
+
+acf(res, main="")
+
+shapiro.test(res)
+TSA::LB.test(model,lag=6)
+
+# Forecast
+plot(model,
+     type="o",
+     n.ahead=10,
+     col="red",
+     ylab="Adjusted Open Price")
