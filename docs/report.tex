@@ -8,6 +8,7 @@
 \usepackage{amsmath, amssymb,natbib}
 
 \usepackage{subcaption}
+\usepackage{fancyvrb}
 \usepackage{graphicx,bm}
 \usepackage{color}
  \usepackage[table]{xcolor}
@@ -76,7 +77,6 @@
 \renewcommand*\abstractname{Abstract}
 
 \title{Application of ARIMA Models in Finance} % 
-% Old title: The Evolution of the Goodwin Economics Model
 \author{\qquad Karlos Ye$^{1}$ \qquad Grant Forsythe$^{2}$ \qquad Leah Klompmaker$^{3}$}
 
 \date{
@@ -107,27 +107,16 @@ Here, we examine the differences between the Goodwin and Goodwin-Keen models whi
 \section{Introduction} \label{introduction}
 % Introduction Paragragh
 Time series analysis has many applications across various industries. With the advancement of technology and ease of access to data, there has been increased investment in end-to-end quantitative and machine learning models that are used to exploit inefficiencies in financial markets \citep{coqueret2021machine}. The purpose of this project will be to analyze historic stock market performance in the US market in order to predict near future performance\footnote{A stock market index is calculated as the weighted average of a basket of stocks.}. The S\&P 500 is used to represent the market performance in the United States for the purpose of this study. 
-% ; will provide a comparative picture of the different markets and aid in informed decision making for model specification, diagnostics, and finally forecasting. 
-% Interpreting the indices movements and forecasting the future values will be a challenging component of this research as stock price movements can be quite dynamic. 
-% They can be impacted by many factors concurrently such as interest rates, inflation, economic growth, human behaviour, and international events among others. 
 
 % Body Paragraph
 Using historical data to predict the future performance of the index is based on the assumption that stock prices are derived from market forces and historical trends \citep{levy1967relative}. Although this theory was challenged by the \textit{Efficient Market Hypothesis} proposed by \citet{emh} which states that stock prices follow a random walk and; therefore, cannot be predicted by past prices, many empirical studies have found that stock prices are predictable \citep{malkiel2003efficient}.
-% In fact, many hedge fund managers and arbitragers make a living by studying market trends and identifying the most profitable investments for a company. 
-% models are one of the most popular linear models and will be considered in this study. ARIMA
 
 % Closing Paragraph
 For time series forecasting, there are various techniques that can be applied. In this study, an ARIMA model along with various transformations will be considered to adjust the time series such that it is approximately stationary. This report will conclude by forecasting values of the index based on the fitted model and remarks are made based on the value of this model as a potential, real-world, predictive tool.
 
 \section{Methodology} \label{methodology}
-%Karlos Ye
-% This is where you write your mathematical definitions, or dataset acquisitions, and or cleaning of data. 
-
-% Specifically, Pandas.DataReader package was used to import data from Yahoo Finance. For example, S&P500 is derived from the weighted average of the stock prices of top 500 U.S firms, with Apple being the most-weighted firm.
 
 \texttt{R} \citep{R} was used to aggregate market data and fit the model\footnote{The \texttt{R} commands can be viewed in the \nameref{appendix} and the entire project can be viewed on \href{https://github.com/grantwforsythe/ARIMA-Model}{GitHub}.}.  In this research, the Adjusted Open Price\footnote{Adjusted Open Price is calculated after dividends, stock splits and other factors.} is used as a representation of stock indices data. The nomenclature follows \citet{cryer2008time}.
-
-
 
 \subsection{MA Model}
 A moving average process is a finite weighted sum of past random errors plus current random error. A moving average of order $q$, denoted as MA($q$), is defined by
@@ -135,10 +124,6 @@ A moving average process is a finite weighted sum of past random errors plus cur
     Y_t = e_t - \theta_1e_{t-1} - \theta_2e_{t-2} - \cdots - \beta_pe_{t-q}.
 \end{equation}
 A strong assumption for MA models is that the time-series is \textit{stationary}, .i.e. the variance and autocorrelation structure do not change with time. 
-% where \begin{itemize}
-%     \item $\delta$ represents the regression coefficient;
-%     \item $e_{t-1},e_{t-2}...e_{t-q}$ represents the past random white noise
-% \end{itemize}
 
 \subsection{AR Model}
 %An Autoregressive model, as the name suggests, is a regression of itself.% 
@@ -148,29 +133,6 @@ In an autoregressive model, the value at time $t$ is regressed on the previous v
     Y_t = \phi_1Y_{t-1} + \phi_2Y_{t-2} + \cdots + \phi_pY_{t-p} + e_t.
 \end{equation} 
 Like an MA model, AR models require the strict same assumptions of stationarity.
-% where \begin{itemize}
-%     \item $Y_t$ represents the current value of the series;
-%     \item $\phi$ represents the regression coefficient;
-%     \item $Y_{t-1},Y_{t-2}...Y_{t-p}$ represents the past values;
-%     \item $e_t$ represents the error term that includes randomness not explained by past values;
-% \end{itemize}
-% In this model, $\phi_i i \in p \subset \mathbb{Z}$ represents...
-% The Goodwin model is described by
-% \begin{equation}\label{eq:goodwin} 
-% \begin{split}
-%     \dot{\lambda} &= \lambda \cdot \left( \frac{1-\omega}{\nu} - \alpha - \beta - \delta \right), \\
-%     \dot{\omega} &= \omega \cdot (\Phi(\lambda) - \alpha).
-% \end{split}
-% \end{equation}
-% In this model, $\lambda$ represents the fraction of employed workers, and $\omega$ represents the worker's wage share. The Jacobian matrix for the Goodwin system of equations presented as \eqref{eq:goodwin} is defined by
-% \begin{equation} \label{eq:goodwinJ}
-% \mathbf J =
-% \begin{bmatrix}
-%     \pdv{\lambda}\dot{\lambda} & \pdv{\omega}\dot{\lambda}\\[1ex]
-%     \pdv{\lambda}\dot{\omega} & \pdv{\omega}\dot{\omega}
-% \end{bmatrix}.
-% \end{equation}
-% This Jacobian matrix was symbolically determined using various methods (i.e. \texttt{solvers.solve}, \texttt{symbols}, \texttt{Matrix}) from the SymPy library \citep{SymPy}.  The equilibrium points and the corresponding eigenvalues of $\mathbf J$ were also symbolically determined using these methods. To corroborate these results, the parameters in Table \ref{tab:parameters} were used to numerically solve the system. This was done using the \texttt{integrate.odeint} method from the SciPy library \citep{2020SciPy-NMeth}. Initial conditions to the system were selected based on \citet{grasselli2012analysis}. The Matplotlib \citep{matplotlib} graphic library was used to generate representative plots of the resulting numerical solution.
 
 \subsection{ARIMA Model}
 
@@ -178,63 +140,30 @@ Unlike the aforementioned models, Autoregressive Integrated Moving Average - abb
 \begin{equation}\label{eq:ARIMA}
         W_t = \phi_1W_{t-1} + \phi_2W_{t-2} + \cdots + \beta_pW_{t-p} + e_t - \theta_1e_{t-1} - \theta_2e_{t-2} - \cdots - \theta_qe_{t-q}. 
 \end{equation}
-% We consider the Goodwin-Keen model as the system of differential equations defined by 
-% \begin{equation} \label{eq:keen}
-% \begin{split}
-%     \dot{\lambda} &= \lambda \cdot \left( \frac{\kappa(\pi)}{\nu} - \alpha - \beta - \delta \right),\\
-%     \dot{\omega} &= \omega \cdot (\Phi(\lambda) - \alpha),\\
-%     \dot{d} &= d\cdot\left(r-\frac{\kappa(\pi)}{\nu}+\delta\right)+\kappa(\pi)-(1-\omega), \\
-%     \pi &= 1-\omega-rd.
-% \end{split}
-% \end{equation}
-% Where the newly introduced variable $d$ represents the debt ratio of the economy. Additionally, a nonlinear increasing function $\kappa(\pi)$ now represents a non-linear rate of new investment in the economy \citep{grasselli2012analysis}, and $\pi$ represents the net profits share\footnote{Note, $\pi$ is an implicit part of the model and does not represent a state variable. It represents the net profit made from capital investments \citep{grasselli2012analysis}, and also serves to simplify the analysis.}. The Jacobian matrix for the system is now defined by 
-% \begin{equation} \label{eq:keenJ}
-% \mathbf J =
-% \begin{bmatrix}
-%     \pdv{\lambda}\dot{\lambda} & \pdv{\omega}\dot{\lambda} & \pdv{d}\dot{\lambda}\\[1ex]
-%     \pdv{\lambda}\dot{\omega} & \pdv{\omega}\dot{\omega} & \pdv{d}\dot{\omega}\\[1ex]
-%     \pdv{\lambda}\dot{d} & \pdv{\omega}\dot{d} & \pdv{d}\dot{d}
-% \end{bmatrix}.
-% \end{equation}
-% Given the increased complexity of this model, equilibrium points were determined numerically for a variety of initial conditions using the \texttt{integrate.odeint} method from the SciPy library \citep{2020SciPy-NMeth} and simulating for 1000 steps. The closed-form Jacobian matrix was determined using the SymPy library \citep{SymPy}, and its eigenvalues were then determined using the SymPy \texttt{eigenvects} method. A \emph{basin of attraction} study was then performed on this model using the parameters in Table \ref{tab:parameters}. Long-term model convergence was asserted by verifying that the real part of the eigenvalues of \eqref{eq:keenJ}, for various initial conditions, had a value less than zero. All results were plotted using the Matplotlib \citep{matplotlib} graphic library.
 
 \section{Application} \label{application}
+
 \subsection{Model Specification}
+
 As seen in Figure \ref{fig:USA_open} the plot shows a clear upward trend. The variance also tends to be relatively stable with the exception of a few dips.
+
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.5]{imgs/USA_open.png}
     \caption{S\&P500 Performance.}
     \label{fig:USA_open}
 \end{figure}
-As seen in Figure \ref{fig:acf}, the autocorrelation function shows that the present value of the series is strongly related to its past values since all lags pictured are significantly out of the confidence band. A transformation needs to be performed on the data in order to meet the stationarity assumption.
-\begin{figure}
-     \centering
-     \begin{subfigure}[b]{0.55\textwidth}
-         \includegraphics[width=1\linewidth]{imgs/acf_open.png}
-         \caption{}
-         \label{fig:acf_open}
-     \end{subfigure}
-     
-     \begin{subfigure}[b]{0.55\textwidth}
-         \includegraphics[width=1\linewidth]{imgs/pacf_open.png}
-         \caption{}
-         \label{fig:pacf_open}
-     \end{subfigure}
-     \caption{ACF and PACF.}
+
+As seen in Figure \ref{fig:acf&pacf}, the autocorrelation function shows that the present value of the series is strongly related to its past values since all lags pictured are significantly out of the confidence band. A transformation needs to be performed on the data in order to meet the stationarity assumption.
+\begin{figure}[H]%
+    \centering
+    \subfloat[\centering ACF]{{\includegraphics[width=7.5cm]{imgs/acf_open.png} }}%
+    \qquad
+    \subfloat[\centering PACF]{{\includegraphics[width=7.5cm]{imgs/pacf_open.png} }}%
+    \caption{ACF and PACF of the S\&P500}%
+    \label{fig:acf&pacf}%
 \end{figure}
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[scale=0.5]{imgs/acf_first.png}
-%     \caption{The ACF of the First Difference of the S\&P500.}
-%     \label{fig:acf_first}
-% \end{figure}
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[scale=0.5]{imgs/acf_open.png}
-%     \caption{The ACF of the S\&P500.}
-%     \label{fig:acf_open}
-% \end{figure}
+
 \begin{table}[H]
 \centering
 \begin{tabular}{lcccccccccll}
@@ -251,53 +180,45 @@ AR/MA & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
 \caption{EACF of the S\&P500.}
 \label{table:coefficients}
 \end{table}
+
 As seen in Figure \ref{fig:first_difference}, the first difference is close to having mean zero, and the variance is relatively constant. This suggests that the first difference is a good transformation for this data series as it looks approximately stationary. 
+
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.5]{imgs/first_difference.png}
     \caption{The First Difference of the S\&P500.}
     \label{fig:first_difference}
 \end{figure}
+
 As Figure \ref{fig:second_difference} shows, the distribution for the second difference is very similar to the first difference. By parsimony, the best model is the simplest possible model, the first difference is preferred.
+
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.5]{imgs/second_difference.png}
     \caption{The Second Difference of the S\&P500.}
     \label{fig:second_difference}
 \end{figure}
-As Figure \ref{fig:acf_first} shows, the autocorrelation coefficients are significant at lag 5, lag 9, and lag 18. The autocorrelation function does not seem to converge to zero as the number of lags increase. 
-\begin{figure}
-     \centering
-     \begin{subfigure}[b]{0.55\textwidth}
-         \includegraphics[width=1\linewidth]{imgs/acf.png}
-         \caption{}
-         \label{fig:y equals x}
-     \end{subfigure}
-     
-     \begin{subfigure}[b]{0.55\textwidth}
-         \includegraphics[width=1\linewidth]{imgs/pacf.png}
-         \caption{}
-         \label{fig:three sin x}
-     \end{subfigure}
-     \caption{ACF and PACF for the First Difference.}
-\end{figure}
-\begin{figure}[H]
+
+As Figure \ref{fig:acf&pacf_diff} shows, the autocorrelation coefficients are significant at lag 5, lag 9, and lag 18. The autocorrelation function does not seem to converge to zero as the number of lags increase. 
+
+\begin{figure}[H]%
     \centering
-    \includegraphics[scale=0.5]{imgs/acf_first.png}
-    \caption{The ACF of the First Difference of the S\&P500.}
-    \label{fig:acf_first}
+    \subfloat[\centering ACF]{{\includegraphics[width=7.5cm]{imgs/acf_first.png} }}%
+    \qquad
+    \subfloat[\centering PACF]{{\includegraphics[width=7.5cm]{imgs/pacf_first.png} }}%
+    \caption{ACF and PACF of the First Difference}%
+    \label{fig:acf&pacf_diff}%
 \end{figure}
 
 \subsection{Parameter Estimation} 
 
 An ARIMA(1,1,1) was fit with the following parameters
+
 \begin{table}[H]
 \centering
 \begin{tabular}{cc}
 ar1     & ma1   \\
  0.9564  & 1.0000      
-% ARIMA(2,1,1) & -0.7864 & 0.7999 & -0.0720 & 0.0000 \\
-% ARIMA(2,1,2) & -0.9624 & 0.9275 & -0.9944 & 0.9999
 \end{tabular}
 \caption{Model Coefficients.}
 \label{table:coefficients}
@@ -316,23 +237,55 @@ ma1      & 0.999999  & 0.023700 & 42.194  & \textless{} & 2.2e-16
 
 \subsection{Model Diagnostic}
 
+\begin{figure}[H]%
+    \centering
+    \subfloat[\centering]{{\includegraphics[width=7.5cm]{imgs/res.png} }}%
+    \qquad
+    \subfloat[\centering]{{\includegraphics[width=7.5cm]{imgs/qq_res.png} }}%
+    \caption{2 Figures side by side}%
+    \label{fig:res}%
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{imgs/acf_res.png}
+    \caption{ACF of the Residuals}
+    \label{fig:acf_res}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{BVerbatim}
+data:  res
+W = 0.9627, p-value = 0.0186
+\end{BVerbatim}
+\caption{Shapiro-Wilk normality test}
+\label{fig:sharpiro}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{BVerbatim}
+data:  residuals from  model
+X-squared = 7.8511, df = 4, p-value = 0.09719
+\end{BVerbatim}
+\caption{Box-Ljung test}
+\label{fig:boxL}
+\end{figure}
+
 \subsection{Forecast}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{imgs/forecast.png}
+    \caption{Forecasted 10 Trading Days}
+    \label{fig:forecast}
+\end{figure}
 % It is known that the Goodwin model suffers from many limitations \citep{harvie2000testing, moura2013testing}. Nevertheless, the model has persisted. The Goodwin model supplies economists with insight into the prey-predator relationships between capitalists and workers \citep{goodwin1982growth}. We have concluded from our study that this model only has one economically realistic equilibrium. More importantly, this equilibrium can only be divergent (but economically unfeasible) or oscillatory. This feature has been heavily criticized since, in reality, economies are liable to failures. The Goodwin model does not consider such a scenario, as it does not describe the economy in sufficient detail. However, what it does offer is a concise formulation and a stepping-stone for more complex and accurate models.
 
 % Such is the case for the Goodwin-Keen model. What Steve Keen accomplished was the persistence of the prey-predator nature of the original model with the possibility of exhibiting an economic failure scenario \citep{keen1995finance}. Here, $(\lambda^\times, \omega^\times, d^\times)$ represents this critical contribution to the overall model. Unlike with the Goodwin model, where the trivial solution holds no economic value, the divergent solution for the Goodwin-Keen model describes the real scenario of an economy with maximum debt, absolute unemployment, and no wage share for the working population \citep{minsky1992financial}. Our simulation study also shows that \emph{ceteris paribus}, the nature of the long-term equilibrium of the economy, is dependent on the initial conditions of the state variables $\lambda$, $\omega$, and $d$. That is, economies described by the same parameters can fail or stabilize solely as a result of where they begin.
 
-% If your model or problem set has parameters your change, this is where you would write about it. 
-% Minimum 1 and a half pages. 
-
 % \section{Conclusion} \label{conclusion}
 % Throughout this report, the Goodwin and Goodwin-Keen models have been described qualitatively, and presented mathematically. The behaviours of the economic models have been explored numerically and analytically. The tendency of the Goodwin model to converge to an oscillatory equilibrium state or diverge has been demonstrated. The Goodwin-Keen model, which can show more realistic features representative of an economic collapse, has been investigated, and simulations have been performed. A thorough comparison of the models has interpreted their behaviours. This study has concluded that the Goodwin model produces unrealistic long-term behaviour that cannot be used to accurately describe an economy. It has, however, led to many more economically representative models based on the original prey-predator dynamic, such as the Goodwin-Keen model. As demonstrated in this report, Keen's improved model can reasonably simulate an economic crash (instability). The ability to simulate and predict an incoming economic crash, such as a recession or depression, gives governments invaluable foresight. This may allow policy-makers to enact regulations for avoiding, or at the very least, curbing the severity of the crash. Our findings motivate the pursuit of a deeper understanding of economic dynamics, as it paves the way for better predictions of economic events.
-% Housing Prices: Future projections show this, from the model. Then write about what the future results indicate. 
-% SIR Model: If you decrease the infection rate by 20\%, you will get a peak decrease of 15\%. 
-% Sport Statistics: This model indicates player outcomes for this and this team to win these type of games. 
-% This is half a page long.
-
-% \section{Acknowledgments}
-% We would like to thank Dr. Cousins (McMaster University) for his guidance throughout the project.
 
 \nocite{*}
 \bibliographystyle{chicago}
@@ -340,9 +293,6 @@ ma1      & 0.999999  & 0.023700 & 42.194  & \textless{} & 2.2e-16
 \newpage
 
 \section{Appendix} \label{appendix}
-\lstinputlisting[caption={R Commands.}, language=Python]{../scripts/main.R}
-
-% \newpage
-% \section*{Appendix}
+\lstinputlisting[language=R]{../scripts/main.R}
 
 \end{document}
